@@ -1,14 +1,26 @@
 import "./App.scss";
+import { useState } from "react";
 
 function App() {
-	return (
-		<>
-			<h1>Xin chao cac ban, minh la Phecode day!</h1>
-			<h2>Chao ban</h2>
-			<h3>Chao ban</h3>
-			<h4>Chao ban</h4>
-		</>
-	);
+  const [color, setColor] = useState("red");
+  const [status, setStatus] = useState(true);
+
+  const changeColor = () => {
+    setColor(prevColor => (prevColor === "red" ? "blue" : "red"));
+  };
+
+  const changeStatus = () => {
+    setStatus(prevStatus => !prevStatus);
+  };
+
+  return (
+    <div className="w-full h-screen flex items-center justify-center">
+      <button className="mr-4" onClick={changeColor}>Change Color</button>
+      <button className="mr-4" onClick={changeStatus}>Change Status</button>
+      {status && <div className={`box ${color}`}></div>}
+    </div>
+  );
 }
 
 export default App;
+
