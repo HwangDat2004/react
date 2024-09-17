@@ -21,11 +21,12 @@ function App  ()  {
   const addCv = () => {
     if (newCv !== "") {
       setCv(prevCv => [...prevCv, newCv]);
+      // ...: dấu 3 chấm là nhận được tất cả các phần tử trong mảng
       setNewCv("");
     }
   };
 
-  const deleteCv = id => {
+  const deleteCv = (id) => {
     setCv(prevCv => prevCv.filter((cv, index) => index !== id));
   };
 
