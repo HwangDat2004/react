@@ -49,9 +49,9 @@ function App  ()  {
       <button onClick={addCv} className="btn btn-checkout btn-primary">Add</button>
       <ul className="list-group mt-3">
         {Cv.map((cv, index) => (
-          <li key={index} >
+          <li key={index} className="list-group-item" >
             {editId === index ? (
-              <input type="text" className="form-control" value={editText} onChange={e => setEditText(e.target.value)}/>
+              <input type="text" className=" form-control-color" value={editText} onChange={e => setEditText(e.target.value)}/>
             ) : (
               cv
             )}
