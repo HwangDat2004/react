@@ -55,9 +55,10 @@ function App  ()  {
             ) : (
               cv
             )}
-
+                
               <button className="btn btn-checkout btn-primary" onClick={() => deleteCv(index)}>Delete</button>
               <button className="btn btn-checkout btn-danger" onClick={() => editCv(index, cv)}>Edit</button>
+
           </li>
         ))}
       </ul>
