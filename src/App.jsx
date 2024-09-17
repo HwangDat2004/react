@@ -51,11 +51,8 @@ function App  ()  {
       <ul className="list-group">
         {Cv.map((cv, index) => (
           <li key={index} className="list-group-item " >
-            {editId === index ? (
-              <input type="text" className=" form-control 98px" value={editText} onChange={e => setEditText(e.target.value)}/>
-            ) : (
-              cv
-            )}
+
+              <span>{cv}</span>
 
               <button className="btn btn-checkout btn-primary" onClick={() => deleteCv(index)}>Delete</button>
               <button className="btn btn-checkout btn-danger" onClick={() => editCv(index, cv)}>Edit</button>
