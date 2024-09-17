@@ -43,20 +43,21 @@ function App  ()  {
 
   return (
     <div className="container">
-      <div className="row justify-content-center col-2">
+      <div className="row justify-content-center col-4">
       <h1>CV</h1>
       <input type="text" className="form-control " value={newCv} onChange={e => setNewCv(e.target.value)}/>
       <button onClick={addCv} className="btn btn-checkout btn-primary">Add</button>
       <ul className="list-group mt-3">
         {Cv.map((cv, index) => (
-          <li key={index} className="list-group-item" >
+          <li key={index} className="list-group-item " >
             {editId === index ? (
-              <input type="text" className=" form-control-color" value={editText} onChange={e => setEditText(e.target.value)}/>
+              <input type="text" className=" form-control 98px" value={editText} onChange={e => setEditText(e.target.value)}/>
             ) : (
               cv
             )}
-            <button className="btn btn-checkout btn-primary" onClick={() => deleteCv(index)}>Delete</button>
-            <button className="btn btn-checkout btn-danger" onClick={() => editCv(index, cv)}>Edit</button>
+
+              <button className="btn btn-checkout btn-primary" onClick={() => deleteCv(index)}>Delete</button>
+              <button className="btn btn-checkout btn-danger" onClick={() => editCv(index, cv)}>Edit</button>
           </li>
         ))}
       </ul>
