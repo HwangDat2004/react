@@ -27,7 +27,7 @@ function App  ()  {
   };
 
   const deleteCv = (id) => {
-    setCv(prevCv => prevCv.filter((cv, index) => index !== id));
+    setCv(prevCv => prevCv.filter((_cv, index) => index !== id));
   };
 
   const editCv = (id, text) => {
