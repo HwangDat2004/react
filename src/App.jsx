@@ -47,7 +47,7 @@ function App  ()  {
       <h1>CV</h1>
       <input type="text" className="form-control " value={newCv} onChange={e => setNewCv(e.target.value)}/>
       <button onClick={addCv} className="btn btn-checkout btn-primary">Add</button>
-      <ul className="list-group mt-3">
+      <ul className="list-group">
         {Cv.map((cv, index) => (
           <li key={index} className="list-group-item " >
             {editId === index ? (
@@ -55,7 +55,7 @@ function App  ()  {
             ) : (
               cv
             )}
-                
+
               <button className="btn btn-checkout btn-primary" onClick={() => deleteCv(index)}>Delete</button>
               <button className="btn btn-checkout btn-danger" onClick={() => editCv(index, cv)}>Edit</button>
 
