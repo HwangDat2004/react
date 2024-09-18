@@ -1,70 +1,96 @@
-import "./App.scss";
 import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
 
-function App  ()  {
-  // const [color, setColor] = useState("red");
-  // const [status, setStatus] = useState(true);
+function App() {
+  const [todos, setTodos] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const [isEditing, setIsEditing] = useState(null);
+  const [editValue, setEditValue] = useState("");
 
-  // const changeColor = () => {
-  //   setColor(prevColor => (prevColor === "red" ? "blue" : "red"));
-  // };
-
-  // const changeStatus = () => {
-  //   setStatus(prevStatus => !prevStatus);
-  // };
-
-  const [Cv, setCv] = useState([]); // danh sach cac cong viec
-  const [newCv, setNewCv] = useState(""); // o trong input
-  const [editId, setEditId] = useState(null); // id cua cong viec dang chinh sua
-  const [editText, setEditText] = useState(""); // noi dung cua cong viec dang chinh sua
-
-  const addCv = () => {
-    if (newCv !== "") {
-      setCv(prevCv => [...prevCv, newCv]);
-      // ...: dấu 3 chấm là nhận được tất cả các phần tử trong mảng
-      setNewCv("");
-    }
+  const onHandleSubmit = (e) => {
+    e.preventDefault();
+    setTodos([...todos, { id: Date.now(), text: inputValue, done: false }]);
+    setInputValue("");
   };
 
-  const deleteCv = (id) => {
-    setCv(prevCv => prevCv.filter((_cv, index) => index !== id));
+  const onHandleRemove = (id) => {
+    setTodos(todos.filter((todo) => todo.id != id));
   };
 
-  const editCv = (id, text) => {
-    setEditId(id);
-    setEditText(text);
+  const toggleTodo = (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id == id ? { ...todo, done: !todo.done } : todo
+      )
+    );
   };
 
-  const updateCv = () => {
-    setCv(prevCv => prevCv.map((cv, index) => (index === editId ? editText : cv)));
-    setEditId(null);
-    setEditText("");
+  const onHandleEditClick = (todo) => {
+    setIsEditing(todo);
   };
-
-
+  const onHandleSaveEdit = (e) => {
+    e.preventDefault();
+    setTodos(
+      todos.map((todo) =>
+        todo.id == isEditing.id ? { ...todo, text: editValue } : todo
+      )
+    );
+    setIsEditing(null);
+  };
+  const onHandleCancelSave = () => {
+    setIsEditing(null);
+  };
   return (
-    <div className="container">
-      <div className="row justify-content-center col-4">
-      <h1>CV</h1>
-      <input type="text" className="form-control " value={newCv} onChange={e => setNewCv(e.target.value)}/>
-      <button onClick={addCv} className="btn btn-checkout btn-primary">Add</button>
-      <ul className="list-group">
-        {Cv.map((cv, index) => (
-          <li key={index} className="list-group-item " >
-
-              <span>{cv}</span>
-
-              <button className="btn btn-checkout btn-primary" onClick={() => deleteCv(index)}>Delete</button>
-              <button className="btn btn-checkout btn-danger" onClick={() => editCv(index, cv)}>Edit</button>
-
-          </li>
-        ))}
+    <>
+      {JSON.stringify(todos)}
+      <form action="" onSubmit={onHandleSubmit}>
+        <input
+          type="text"
+          value={inputValue}
+          onInput={(e) => setInputValue(e.target.value)}
+        />
+        <button>Add</button>
+      </form>
+      <ul>
+        {todos.map((todo) => {
+          return (
+            <li key={todo.id}>
+              <input type="checkbox" onChange={() => toggleTodo(todo.id)} />
+              {isEditing && isEditing.id == todo.id ? (
+                <>
+                  <form action="" onSubmit={onHandleSaveEdit}>
+                    <input
+                      type="text"
+                      defaultValue={isEditing.text}
+                      onInput={(e) => setEditValue(e.target.value)}
+                    />
+                    <button>Save</button>
+                    <button onClick={onHandleCancelSave}>Cancel</button>
+                  </form>
+                </>
+              ) : (
+                <>
+                  <span
+                    style={{
+                      textDecoration:
+                        todo.done == true ? "line-through" : "none",
+                    }}
+                    onClick={() => onHandleEditClick(todo)}
+                  >
+                    {todo.text}
+                  </span>
+                  <button onClick={() => onHandleRemove(todo.id)}>
+                    Delete
+                  </button>
+                </>
+              )}
+            </li>
+          );
+        })}
       </ul>
-      <button onClick={updateCv}>Update</button>
-      </div>
-    </div>
+    </>
   );
 }
 
 export default App;
-
